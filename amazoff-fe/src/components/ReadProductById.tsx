@@ -20,7 +20,7 @@ export default function ReadProductById() {
 
     return (
         <div className="flex flex-col gap-4 p-4 w-fit border border-gray-200 rounded-md">
-            <h1 className="font-bold">Add product</h1>
+            <h1 className="font-bold">Read product</h1>
             <div className="flex w-full max-w-sm items-center space-x-2">
                 <Input type="number" placeholder="Product ID" id="productId" value={productId} onChange={(e) => setProductId(parseFloat(e.target.value))} />
                 <Button onClick={handleReadProductById} type="submit">Read</Button>

@@ -1,11 +1,11 @@
 import CreateProduct from "@/components/CreateProduct";
 import ReadProductById from "@/components/ReadProductById";
 
-export default function Home() {
+export default function Manage() {
   return (
-    <div className="flex gap-4 p-4">
-      <CreateProduct />
-      <ReadProductById />
+    <div className="flex flex-row">
+    <CreateProduct />
+    <ReadProductById />
     </div>
-  )
+  );
 }

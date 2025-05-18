@@ -57,7 +57,7 @@ export default function NavBar() {
           </div>
 
           {/* Desktop menu */}
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex flex-row flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <Image
                 src="/amazoff-monochrome.png"
@@ -75,6 +75,23 @@ export default function NavBar() {
                   </Button>
                 </Link>
               ))}
+            </div>
+            <div className="hidden sm:flex sm:ml-auto items-center text-slate-50">
+              <Link href="/cart">
+                <Button variant="ghost" className="cursor-pointer">
+                  Cart
+                </Button>
+              </Link>
+              <Link href="/auth/login">
+                <Button variant="ghost" className="cursor-pointer">
+                  Login
+                </Button>
+              </Link>
+              <Link href="/auth/logout">
+                <Button variant="ghost" className="cursor-pointer">
+                  Logout
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -94,6 +111,16 @@ export default function NavBar() {
                 </Button>
               </Link>
             ))}
+            <Link href="/auth/login">
+              <Button variant="ghost" className="cursor-pointer">
+                Login
+              </Button>
+            </Link>
+            <Link href="/auth/logout">
+              <Button variant="ghost" className="cursor-pointer">
+                Logout
+              </Button>
+            </Link>
           </div>
         </div>
       )}

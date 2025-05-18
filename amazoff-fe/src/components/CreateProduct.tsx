@@ -12,7 +12,9 @@ export default function CreateProduct() {
 
     const handleCreateProduct = async () => {
         try {
-            await createProduct({ name, price, description });
+            await createProduct({
+                name, price, description, vendor: ""
+            });
             alert("Product created successfully!");
         } catch {
             alert("Failed to create product.");

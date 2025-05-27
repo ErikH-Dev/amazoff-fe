@@ -1,9 +1,28 @@
 import { useCart } from "@/contexts/CartContext";
+import { createOrder } from "@/services/orderService";
+import { useState } from "react";
 
 export default function Cart() {
     const { cart, removeFromCart, clearCart, updateCartItem } = useCart();
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
     const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    const handlePlaceOrder = async () => {
+        setIsPlacingOrder(true);
+        try {
+            // TODO: Replace with actual buyer ID from authentication
+            const buyerId = 1;
+            await createOrder(cart, buyerId);
+            clearCart();
+            alert("Order placed successfully!");
+        } catch (error) {
+            console.error("Failed to place order:", error);
+            alert("Failed to place order. Please try again.");
+        } finally {
+            setIsPlacingOrder(false);
+        }
+    };
 
     return (
         <div className="flex flex-row">
@@ -56,6 +75,13 @@ export default function Cart() {
                     ) : (
                         <div>
                             <p className="font-semibold">Total: € {total.toFixed(2)}</p>
+                            <button
+                                className="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
+                                onClick={handlePlaceOrder}
+                                disabled={isPlacingOrder}
+                            >
+                                {isPlacingOrder ? "Placing Order..." : "Place Order"}
+                            </button>
                         </div>
                     )}
                 </div>

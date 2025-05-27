@@ -6,7 +6,7 @@ import { Product } from "@/models/product";
 
 export default function ReadProductById() {
     const [productId, setProductId] = useState<number>(0);
-    const [product, setProduct] = useState<Product>({} as Product);
+    const [product] = useState<Product>({} as Product);
 
     const handleReadProductById = async () => {
         // try {

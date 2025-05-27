@@ -2,20 +2,19 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Product } from "@/interfaces/product";
-import { getProductById } from "@/services/productService";
+import { Product } from "@/models/product";
 
 export default function ReadProductById() {
     const [productId, setProductId] = useState<number>(0);
     const [product, setProduct] = useState<Product>({} as Product);
 
     const handleReadProductById = async () => {
-        try {
-            setProduct(await getProductById(productId));
-            alert("Product fetched successfully!");
-        } catch {
-            alert("Error fetching product");
-        }
+        // try {
+        //     setProduct(await getProductById(productId));
+        //     alert("Product fetched successfully!");
+        // } catch {
+        //     alert("Error fetching product");
+        // }
     };
 
     return (

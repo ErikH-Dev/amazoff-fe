@@ -1,4 +1,3 @@
-"use client"
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,9 @@ export default function CreateProduct() {
 
     const handleCreateProduct = async () => {
         try {
-            await createProduct({ name, price, description });
+            // await createProduct({
+            //     name, price, description, vendor: ""
+            // });
             alert("Product created successfully!");
         } catch {
             alert("Failed to create product.");

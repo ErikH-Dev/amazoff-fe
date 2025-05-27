@@ -2,9 +2,15 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useCart } from "@/contexts/CartContext";
 
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  const { cart } = useCart();
+
+  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const navItems = [
     { text: "Home", route: "/" },
@@ -76,6 +82,38 @@ export default function NavBar() {
                 </Link>
               ))}
             </div>
+            <div className="hidden sm:flex sm:ml-auto items-center text-slate-50">
+              <Link href="/cart">
+                <Button variant="ghost" className="cursor-pointer relative">
+                  Cart
+                  {cartCount > 0 && (
+                    <span className="ml-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
+                </Button>
+              </Link>
+              {!session ? (
+                <Button
+                  variant="ghost"
+                  className="cursor-pointer"
+                  onClick={() => signIn()}
+                >
+                  Login
+                </Button>
+              ) : (
+                <>
+                  <span className="mx-2">{session.user?.email}</span>
+                  <Button
+                    variant="ghost"
+                    className="cursor-pointer"
+                    onClick={() => signOut()}
+                  >
+                    Logout
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -94,6 +132,26 @@ export default function NavBar() {
                 </Button>
               </Link>
             ))}
+            {!session ? (
+              <Button
+                variant="ghost"
+                className="cursor-pointer"
+                onClick={() => signIn()}
+              >
+                Login
+              </Button>
+            ) : (
+              <>
+                <span className="mx-2 block text-slate-50">{session.user?.email}</span>
+                <Button
+                  variant="ghost"
+                  className="cursor-pointer"
+                  onClick={() => signOut()}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
           </div>
         </div>
       )}

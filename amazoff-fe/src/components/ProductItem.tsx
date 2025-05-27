@@ -1,10 +1,12 @@
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Product } from "@/interfaces/product";
+import { useCart } from "@/contexts/CartContext";
+import { Product } from "@/models/product";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function ProductItem({ product }: Readonly<{ product: Product }>) {
+    const { addToCart } = useCart();
     return (
         <Link href={`/products/${product.id}`} passHref>
             <motion.div
@@ -12,6 +14,16 @@ export default function ProductItem({ product }: Readonly<{ product: Product }>)
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
             >
+                <div
+                    className="absolute top-0 right-0 bg-white p-1 rounded-full shadow-md z-10 border-2 border-transparent hover:border-slate-500 opacity-0 group-hover:opacity-100 transition-opacity transition-colors duration-200"
+                    onClick={e => {
+                        e.preventDefault(); // Prevent navigating to product page
+                        addToCart(product);
+                    }}
+                >
+                    <Plus className="h-6 w-6 text-slate-500 hover:text-slate-700" />
+                </div>
+
                 <AspectRatio ratio={1 / 1}>
                     <Image
                         src="/product-skeleton.png"
@@ -23,7 +35,7 @@ export default function ProductItem({ product }: Readonly<{ product: Product }>)
                 <div className="flex flex-row items-center mt-2">
                     <div className="flex flex-col justify-between">
                         <span className="font-bold">{product.name}</span>
-                        <span className="font-light">{product.vendor}</span>
+                        <span className="font-light">{product.vendor.store_name}</span>
                     </div>
                     <span className="font-bold ml-auto">€ {product.price}</span>
                 </div>

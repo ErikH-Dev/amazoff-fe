@@ -1,34 +1,31 @@
-import { Product } from "@/interfaces/product";
+import { Product } from "@/models/product";
 import axios from "axios";
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const PRODUCT_API_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/products";
 
-export async function createProduct(product: Product): Promise<void> {
-  try {
-    await axios.post("http://localhost:8080/products", product);
-    console.log("Product created successfully");
-  } catch (error) {
-    console.error("Error creating product:", error);
-    throw error;
-  }
+export async function createProduct(product: Product): Promise<Product> {
+    try {
+        const response = await axios.post<Product>(PRODUCT_API_URL, product);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to create product");
+    }
 }
 
 export async function getProducts(): Promise<Product[]> {
-  try {
-    const response = await axios.get<Product[]>("http://localhost:8080/products");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    throw error;
-  }
+    try {
+        const response = await axios.get<Product[]>(PRODUCT_API_URL);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to fetch products");
+    }
 }
 
-export async function getProductById(id: number): Promise<Product> {
-  try {
-      const response = await axios.get<Product>("http://localhost:8080/products/"+id);
-      return response.data;
-  } catch (error) {
-      console.error("Error fetching product:", error);
-      throw error;
-  }
+export async function getProductById(id: string): Promise<Product> {
+    try {
+        const response = await axios.get<Product>(`${PRODUCT_API_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Failed to fetch product");
+    }
 }

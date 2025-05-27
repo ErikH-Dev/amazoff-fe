@@ -6,13 +6,11 @@ import toast from "react-hot-toast";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getProducts()
       .then(setProducts)
       .catch((err) => {
-        setError(err.message);
         toast.error(err.message);
       });
   }, []);

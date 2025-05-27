@@ -1,11 +1,11 @@
 import { Product } from "@/interfaces/product";
 import axios from "axios";
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export async function createProduct(product: Product): Promise<void> {
   try {
-    await axios.post("http://localhost:8080/products", product);
+    await axios.post(`${API_BASE_URL}/products`, product);
     console.log("Product created successfully");
   } catch (error) {
     console.error("Error creating product:", error);
@@ -15,7 +15,7 @@ export async function createProduct(product: Product): Promise<void> {
 
 export async function getProducts(): Promise<Product[]> {
   try {
-    const response = await axios.get<Product[]>("http://localhost:8080/products");
+    const response = await axios.get<Product[]>(`${API_BASE_URL}/products`);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -25,7 +25,7 @@ export async function getProducts(): Promise<Product[]> {
 
 export async function getProductById(id: number): Promise<Product> {
   try {
-      const response = await axios.get<Product>("http://localhost:8080/products/"+id);
+      const response = await axios.get<Product>(`${API_BASE_URL}/products/${id}`);
       return response.data;
   } catch (error) {
       console.error("Error fetching product:", error);

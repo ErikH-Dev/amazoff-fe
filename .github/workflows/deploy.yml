@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+permissions:
+  packages: write
+  contents: read
+  actions: read
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -31,7 +36,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Set repository name lowercase
         id: repo_name

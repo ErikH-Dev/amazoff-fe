@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createProduct } from "@/services/productService";
 
 export default function CreateProduct() {
     const [name, setName] = useState<string>("");

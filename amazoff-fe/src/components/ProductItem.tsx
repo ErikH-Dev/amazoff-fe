@@ -4,13 +4,14 @@ import { Product } from "@/models/product";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Plus } from "lucide-react";
 
 export default function ProductItem({ product }: Readonly<{ product: Product }>) {
     const { addToCart } = useCart();
     return (
         <Link href={`/products/${product.id}`} passHref>
             <motion.div
-                className="flex flex-col border-2 border-slate-300 rounded-lg m-2 p-4 w-full max-w-xs min-w-8 cursor-pointer hover:shadow-lg transition-shadow"
+                className="relative flex flex-col border-2 border-slate-300 rounded-lg m-2 p-4 w-full max-w-xs min-w-8 cursor-pointer hover:shadow-lg group transition-all duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
             >
@@ -32,7 +33,7 @@ export default function ProductItem({ product }: Readonly<{ product: Product }>)
                         className="object-cover rounded-lg"
                     />
                 </AspectRatio>
-                <div className="flex flex-row items-center mt-2">
+                <div className="flex flex-row items-center mt-2 text-sm">
                     <div className="flex flex-col justify-between">
                         <span className="font-bold">{product.name}</span>
                         <span className="font-light">{product.vendor.store_name}</span>

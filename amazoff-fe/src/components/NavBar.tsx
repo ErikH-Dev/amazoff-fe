@@ -63,7 +63,7 @@ export default function NavBar() {
           </div>
 
           {/* Desktop menu */}
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex flex-row flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <Image
                 src="/amazoff-monochrome.png"

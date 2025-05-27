@@ -19,9 +19,11 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
+        working-directory: ./amazoff-fe
         run: npm ci
 
       - name: Build Next.js app
+        working-directory: ./amazoff-fe
         run: npm run build
 
       - name: Log in to GitHub Container Registry
@@ -34,7 +36,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./amazoff-fe
+          file: ./amazoff-fe/Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest

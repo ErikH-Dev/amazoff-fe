@@ -23,13 +23,18 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      # Create .env.local from GitHub secrets
+      - name: Create .env.local
         working-directory: ./amazoff-fe
-        run: npm ci
-
-      - name: Build Next.js app
-        working-directory: ./amazoff-fe
-        run: npm run build
+        run: |
+          cat <<EOF > .env.local
+          NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+          KEYCLOAK_CLIENT_ID=${{ secrets.KEYCLOAK_CLIENT_ID }}
+          KEYCLOAK_CLIENT_SECRET=${{ secrets.KEYCLOAK_CLIENT_SECRET }}
+          KEYCLOAK_ISSUER=${{ secrets.KEYCLOAK_ISSUER }}
+          NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+          EOF
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3

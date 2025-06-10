@@ -24,7 +24,8 @@ export async function createProduct(product: Product): Promise<void> {
 
 export async function getProducts(): Promise<Product[]> {
   try {
-    const response = await axios.get<Product[]>(`${API_BASE_URL}/products`);
+    const headers = await getAuthHeader();
+    const response = await axios.get<Product[]>(`${API_BASE_URL}/products`, { headers });
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);

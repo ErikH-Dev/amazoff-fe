@@ -33,12 +33,15 @@ export default function ProductItem({ product }: Readonly<{ product: Product }>)
                         className="object-cover rounded-lg"
                     />
                 </AspectRatio>
-                <div className="flex flex-row items-center mt-2 text-sm">
+                <div className="flex flex-row justify-between mt-2 text-sm">
                     <div className="flex flex-col justify-between">
                         <span className="font-bold">{product.name}</span>
                         <span className="font-light">{product.vendor.store_name}</span>
                     </div>
-                    <span className="font-bold ml-auto">€ {product.price}</span>
+                    <div className="flex flex-col justify-between mt-2 text-sm">
+                        <span className="font-bold">€ {product.price}</span>
+                        <span className="font-light">In Stock: {product.stock}</span>
+                    </div>
                 </div>
             </motion.div>
         </Link>

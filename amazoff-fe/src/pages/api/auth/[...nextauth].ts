@@ -9,4 +9,17 @@ export default NextAuth({
       issuer: process.env.KEYCLOAK_ISSUER!,
     }),
   ],
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      // Attach the accessToken to the session object
+      session.accessToken = token.accessToken as string;
+      return session;
+    },
+  },
 });

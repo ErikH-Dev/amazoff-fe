@@ -1,9 +1,15 @@
-import type { NextRequest } from "next/server";
-import { auth0 } from "./lib/auth0";
+import { withAuth } from "next-auth/middleware";
 
-export async function middleware(request: NextRequest) {
-  return await auth0.middleware(request);
-}
+export default withAuth(
+  function middleware(req) {
+    // Add any custom middleware logic here if needed
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token,
+    },
+  }
+);
 
 export const config = {
   matcher: [
@@ -12,7 +18,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - api/auth (NextAuth API routes)
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|api/auth).*)",
   ],
 };

@@ -10,6 +10,9 @@ export default function NavBar() {
   const { data: session } = useSession();
   const { cart } = useCart();
 
+  const keycloakIssuer = process.env.NEXT_PUBLIC_KEYCLOAK_ISSUER;
+  const accountUrl = `${keycloakIssuer}/account`;
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const navItems = [
@@ -103,7 +106,7 @@ export default function NavBar() {
                 </Button>
               ) : (
                 <>
-                  <span className="mx-2">{session.user?.email}</span>
+                  <button className="mx-2" onClick={() => window.location.href = accountUrl}>{session.user?.email}</button>
                   <Button
                     variant="ghost"
                     className="cursor-pointer"
@@ -142,7 +145,7 @@ export default function NavBar() {
               </Button>
             ) : (
               <>
-                <span className="mx-2 block text-slate-50">{session.user?.email}</span>
+                <button className="mx-2 block text-slate-50" onClick={() => window.location.href = accountUrl}>{session.user?.email}</button>
                 <Button
                   variant="ghost"
                   className="cursor-pointer"

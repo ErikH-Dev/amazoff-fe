@@ -11,7 +11,7 @@ async function getAuthHeader() {
     : {};
 }
 
-export async function createProduct(product: Product): Promise<void> {
+export async function addProduct(product: Product): Promise<void> {
   try {
     const headers = await getAuthHeader();
     await axios.post(`${API_BASE_URL}/products`, product, { headers });
@@ -40,6 +40,55 @@ export async function getProductById(id: number): Promise<Product> {
     return response.data;
   } catch (error) {
     console.error("Error fetching product:", error);
+    throw error;
+  }
+}
+
+export async function searchProducts(q: string): Promise<Product[]> {
+  try {
+    const headers = await getAuthHeader();
+    const response = await axios.get<Product[]>(`${API_BASE_URL}/products/search`, {
+      params: { q },
+      headers,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error searching products:", error);
+    throw error;
+  }
+}
+
+export async function getProductsByVendorId(): Promise<Product[]> {
+  // try {
+  //   const headers = await getAuthHeader();
+  //   const response = await axios.get<Product[]>(`${API_BASE_URL}/products/vendor/}`, { headers });
+  //   return response.data;
+  // } catch (error) {
+  //   console.error("Error fetching products by vendor ID:", error);
+  //   throw error;
+  // }
+
+  //TODO: uncommnent the above code when the backend is ready
+  return getProducts();
+}
+
+export async function updateProduct(product: Product): Promise<void> {
+  try {
+    const headers = await getAuthHeader();
+    await axios.put(`${API_BASE_URL}/products/`, product, { headers });
+    console.log("Product updated successfully");
+  } catch (error) {
+    console.error("Error updating product:", error);
+    throw error;
+  }
+}
+export async function deleteProduct(id: number): Promise<void> {
+  try {
+    const headers = await getAuthHeader();
+    await axios.delete(`${API_BASE_URL}/products/${id}`, { headers });
+    console.log("Product deleted successfully");
+  } catch (error) {
+    console.error("Error deleting product:", error);
     throw error;
   }
 }

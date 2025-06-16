@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getProducts, searchProducts } from "@/services/productService";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);

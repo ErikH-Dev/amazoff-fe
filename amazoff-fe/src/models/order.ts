@@ -1,6 +1,10 @@
 import { OrderItem } from "./orderitem";
 
 export interface Order {
-    buyer_id: number;
-    order_items: OrderItem[];
-  }
+  id: number;
+  order_items: OrderItem[];
+  status: string;
+  order_date: string | Date;
+  keycloak_id: string;
+  buyer: any | null;
+}

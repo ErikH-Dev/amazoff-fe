@@ -17,18 +17,13 @@ async function getAuthHeader() {
 
 export async function createOrder(cartItems: CartItem[], buyerId: number): Promise<void> {
   try {
-    const orderItems: OrderItem[] = cartItems.map(item => ({
+    const order_items: OrderItem[] = cartItems.map(item => ({
       product_id: item.product_id,
       quantity: item.quantity
     })); 
 
-    const order: Order = {
-      buyer_id: buyerId,
-      order_items: orderItems
-    };
-
     const headers = await getAuthHeader();
-    await axios.post(`${API_BASE_URL}/orders`, order, { headers });
+    await axios.post(`${API_BASE_URL}/orders`, { order_items }, { headers });
     console.log("Order created successfully");
   } catch (error) {
     console.error("Error creating order:", error);
@@ -36,10 +31,10 @@ export async function createOrder(cartItems: CartItem[], buyerId: number): Promi
   }
 }
 
-export async function getOrdersByUser(userId: number): Promise<Order[]> {
+export async function getOrdersByUser(): Promise<Order[]> {
   try {
     const headers = await getAuthHeader();
-    const response = await axios.get<Order[]>(`${API_BASE_URL}/orders/user/${userId}`, { headers });
+    const response = await axios.get<Order[]>(`${API_BASE_URL}/orders/user`, { headers });
     return response.data;
   } catch (error) {
     console.error("Error fetching orders:", error);

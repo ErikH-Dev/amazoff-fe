@@ -94,7 +94,7 @@ export default function Manage() {
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.id}>
+            <TableRow key={product.product_id}>
               <TableCell className="font-medium">{product.name}</TableCell>
               <TableCell>${product.price}</TableCell>
               <TableCell>{product.stock}</TableCell>

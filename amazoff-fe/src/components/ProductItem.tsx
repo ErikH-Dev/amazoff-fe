@@ -9,7 +9,7 @@ import { Plus } from "lucide-react";
 export default function ProductItem({ product }: Readonly<{ product: Product }>) {
     const { addToCart } = useCart();
     return (
-        <Link href={`/products/${product.id}`} passHref>
+        <Link href={`/products/${product.product_id}`} passHref>
             <motion.div
                 className="relative flex flex-col border-2 border-slate-300 rounded-lg m-2 p-4 w-full max-w-xs min-w-8 cursor-pointer hover:shadow-lg group transition-all duration-200"
                 whileHover={{ scale: 1.05 }}
@@ -36,7 +36,7 @@ export default function ProductItem({ product }: Readonly<{ product: Product }>)
                 <div className="flex flex-row justify-between mt-2 text-sm">
                     <div className="flex flex-col justify-between">
                         <span className="font-bold">{product.name}</span>
-                        <span className="font-light">{product.vendor.store_name}</span>
+                        <span className="font-light">{product.vendor?.store_name ?? "Unknown vendor"}</span>
                     </div>
                     <div className="flex flex-col justify-between mt-2 text-sm">
                         <span className="font-bold">€ {product.price}</span>

@@ -11,9 +11,7 @@ export default function Cart() {
     const handlePlaceOrder = async () => {
         setIsPlacingOrder(true);
         try {
-            // TODO: Replace with actual buyer ID from authentication
-            const buyerId = 1;
-            await createOrder(cart, buyerId);
+            await createOrder(cart);
             clearCart();
             alert("Order placed successfully!");
         } catch (error) {

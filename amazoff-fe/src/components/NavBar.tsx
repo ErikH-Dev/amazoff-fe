@@ -13,13 +13,16 @@ export default function NavBar() {
   const keycloakIssuer = process.env.NEXT_PUBLIC_KEYCLOAK_ISSUER;
   const accountUrl = `${keycloakIssuer}/account`;
 
+  const isVendor = session?.roles?.includes("vendor");
+  const isBuyer = session?.roles?.includes("buyer");
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const navItems = [
     { text: "Home", route: "/" },
     { text: "Products", route: "/products" },
-    { text: "Manage", route: "/manage" },
-    { text: "About", route: "/about" },
+    ...(isVendor ? [{ text: "Manage", route: "/manage" }] : []),
+    ...(isBuyer ? [{ text: "Orders", route: "/orders" }] : []),
   ];
 
   return (

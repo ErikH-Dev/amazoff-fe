@@ -24,8 +24,8 @@ export async function addProduct(product: Product): Promise<void> {
 
 export async function getProducts(): Promise<Product[]> {
   try {
-    const headers = await getAuthHeader();
-    const response = await axios.get<Product[]>(`${API_BASE_URL}/products`, { headers });
+    // const headers = await getAuthHeader();
+    const response = await axios.get<Product[]>(`${API_BASE_URL}/products`);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -46,10 +46,10 @@ export async function getProductById(id: number): Promise<Product> {
 
 export async function searchProducts(q: string): Promise<Product[]> {
   try {
-    const headers = await getAuthHeader();
+    // const headers = await getAuthHeader();
     const response = await axios.get<Product[]>(`${API_BASE_URL}/products/search`, {
       params: { q },
-      headers,
+      // headers,
     });
     return response.data;
   } catch (error) {

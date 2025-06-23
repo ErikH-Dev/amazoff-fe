@@ -6,5 +6,6 @@ export interface Order {
   status: string;
   order_date: string | Date;
   keycloak_id: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   buyer: any | null;
 }

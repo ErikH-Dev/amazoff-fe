@@ -1,5 +1,4 @@
 import { Order } from "@/models/order";
-import { OrderItem } from "@/models/orderitem";
 import { Product } from "@/models/product";
 import axios from "axios";
 import { getSession } from "next-auth/react";
@@ -15,9 +14,10 @@ async function getAuthHeader() {
     : {};
 }
 
-export async function createOrder(cartItems: CartItem[], buyerId: number): Promise<void> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function createOrder(cartItems: CartItem[]): Promise<void> {
   try {
-    const order_items: OrderItem[] = cartItems.map(item => ({
+    const order_items = cartItems.map(item => ({
       product_id: item.product_id,
       quantity: item.quantity
     })); 
